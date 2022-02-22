@@ -1,0 +1,29 @@
+class Solution {
+    void formPairs(int ind,int target,int[] arr,List<Integer> ds,List<List<Integer>> result)
+    {
+        if(target == 0)
+        {
+            result.add(new ArrayList<> (ds));
+            return;
+        }
+        if(ind == arr.length) return;
+        if(arr[ind] <= target)
+        {
+            ds.add(arr[ind]);
+            formPairs(ind,target-arr[ind],arr,ds,result);
+            ds.remove(ds.size()-1);
+        }
+            formPairs(ind+1,target,arr,ds,result);
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        formPairs(0,target,candidates,ds,result);
+        return result;
+       
+    }
+}
+
+
+//input = [2 3 6 7] target = 7
+//output = [[2 2 3] [7]]
