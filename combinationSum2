@@ -1,0 +1,35 @@
+class Solution {
+     void formPairs(int ind,int target, int[] candidates, List<Integer> ds, List<List<Integer>> result)
+        {
+            if(target == 0)
+            {
+                result.add(new ArrayList<>(ds));
+                return;
+            }
+            for(int i=ind; i<candidates.length; i++){
+                if(i>ind && candidates[i] == candidates[i-1]) continue;
+                if(candidates[ind] > target) break;
+                
+            ds.add(candidates[i]);
+            formPairs(i+1,target-candidates[i],candidates, ds,result); 
+            ds.remove(ds.size()-1);
+        }
+     }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        Arrays.sort(candidates);
+        formPairs(0,target,candidates,ds,result);
+        return result;
+       
+    }
+}
+
+//Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+] 
